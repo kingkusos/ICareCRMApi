@@ -61,8 +61,8 @@ namespace iCareCrmApi.Controllers
                     DataTable dt = vLog.GetVisitLogByCId(page, 5, CId, FILTERCONTENT);
                     if (dt != null && dt.Rows.Count > 0)
                     {
-                        VLP.total = int.Parse(dt.Rows[0]["TotalPage"].ToString());
-                        VLP.totalpage = int.Parse(dt.Rows[0]["TotalCnt"].ToString());
+                        VLP.total = int.Parse(dt.Rows[0]["TotalCnt"].ToString());
+                        VLP.totalpage = int.Parse(dt.Rows[0]["TotalPage"].ToString());
                         foreach (DataRow dr in dt.Rows)
                         {
                             VisitLogModel VLM = new VisitLogModel();

@@ -61,8 +61,8 @@ namespace iCareCrmApi.Controllers
                     DataTable dt = cInfo.QueryPagingClinicInfoBySearch(page, 10, CITY.Trim(), AREA.Trim(), ROAD.Trim(), STATUS.Trim(), SORT.Trim());
                     if (dt != null && dt.Rows.Count > 0)
                     {
-                        CPM.total = int.Parse(dt.Rows[0]["TotalPage"].ToString());
-                        CPM.totalpage = int.Parse(dt.Rows[0]["TotalCnt"].ToString());
+                        CPM.total = int.Parse(dt.Rows[0]["TotalCnt"].ToString());
+                        CPM.totalpage = int.Parse(dt.Rows[0]["TotalPage"].ToString());
 
                         foreach (DataRow dr in dt.Rows)
                         {
