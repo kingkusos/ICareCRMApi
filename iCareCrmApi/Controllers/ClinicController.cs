@@ -68,11 +68,14 @@ namespace iCareCrmApi.Controllers
                         {
                             string vTimeString = string.Empty;
                             DateTime vTime;
-                            if(!DateTime.TryParse(dr["VisitTime"].ToString(), out vTime))
+                            if (string.IsNullOrWhiteSpace(dr["VisitTime"].ToString()))
                             {
-                                vTimeString = vTime.ToString("yyyy/MM/dd HH:mm");
+                                if (!DateTime.TryParse(dr["VisitTime"].ToString(), out vTime))
+                                {
+                                    vTimeString = vTime.ToString("yyyy/MM/dd HH:mm");
+                                }
                             }
-
+                            
                             ClinicListModel CLM = new ClinicListModel();
                             CLM.id = dr["CID"].ToString();
                             CLM.name = dr["CName"].ToString();
