@@ -68,7 +68,7 @@ namespace iCareCrmApi.Controllers
                         {
                             string vTimeString = string.Empty;
                             DateTime vTime;
-                            if (string.IsNullOrWhiteSpace(dr["VisitTime"].ToString()))
+                            if (!string.IsNullOrWhiteSpace(dr["VisitTime"].ToString()))
                             {
                                 if (!DateTime.TryParse(dr["VisitTime"].ToString(), out vTime))
                                 {
