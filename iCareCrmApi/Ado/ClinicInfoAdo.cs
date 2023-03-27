@@ -84,11 +84,11 @@ namespace iCareCrmApi.Ado
                 {
                     if (string.IsNullOrWhiteSpace(sqlSearch))
                     {
-                        sqlSearch += "  WHERE CIN.CAddr LIKE '%'+ @CAddr +'%'    ";
+                        sqlSearch += "  WHERE (CIN.CAddr LIKE '%'+ @CAddr +'%' OR CIN.CName  LIKE '%'+ @CAddr +'%')     ";
                     }
                     else
                     {
-                        sqlSearch += "  AND CIN.CAddr LIKE '%'+ @CAddr +'%'   ";
+                        sqlSearch += "  AND (CIN.CAddr LIKE '%'+ @CAddr +'%' OR CIN.CName  LIKE '%'+ @CAddr +'%')   ";
                     }
                 }
                 if (!string.IsNullOrWhiteSpace(CType))
