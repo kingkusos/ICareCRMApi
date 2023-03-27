@@ -22,6 +22,7 @@ namespace iCareCrmApi.Handle
                 List<string> strAllowDomain = new List<string>()
                 {
                     "https://mis.sprinf.com",
+                    "http://mis.sprinf.com",
                     "http://localhost:3000",
                     "https://localhost:3000"
                 };
