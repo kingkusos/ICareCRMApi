@@ -181,10 +181,13 @@ namespace iCareCrmApi.Ado
 
         public void UpdInfoByCId(string CID, string CName, string CPhone, string CCity, string CArea, string CAddr, string HisSys, bool IsVideo, bool IsMaster, int NumberDr, string CallWay, bool IsOrderTime, string OrderInfo, string MedicalGroup, string EvenPracticing, bool IsSharedCare, string SharedCareContent)
         {
+
+            string CNameCV = "N'" + CName + "'";
+
             SqlConnection Con = new SqlConnection(conn);
 
             string sqlcmd = @"  UPDATE ClinicsInfo
-                                                SET  CName = @CName,
+                                                SET  CName = N''+@CName+'',
 													    CPhone = @CPhone,
 													    CCity = @CCity,
 													    CArea = @CArea,

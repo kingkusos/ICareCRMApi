@@ -238,7 +238,7 @@ namespace iCareCrmApi.Controllers
                     if (string.IsNullOrWhiteSpace(ADDR[2].ToString())) { ColFlag = false; ErrorMsg = "請確認路段"; }
                 }
 
-                if (string.IsNullOrWhiteSpace(HIS)) { ColFlag = false; ErrorMsg = "請確認HIS系統"; }
+                //if (string.IsNullOrWhiteSpace(HIS)) { ColFlag = false; ErrorMsg = "請確認HIS系統"; }
 
                 bool IsVideo;
                 if(!bool.TryParse(ISVIDEO, out IsVideo)) { ColFlag = false; ErrorMsg = "請確認是否視訊"; }
