@@ -23,6 +23,8 @@ namespace iCareCrmApi.Handle
                 {
                     "https://mis.sprinf.com",
                     "http://mis.sprinf.com",
+                    "https://localhost:44326",
+                    "http://localhost:44326",
                     "http://localhost:3000",
                     "https://localhost:3000"
                 };

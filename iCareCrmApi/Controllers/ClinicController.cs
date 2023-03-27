@@ -44,8 +44,9 @@ namespace iCareCrmApi.Controllers
                 string CITY = HttpContext.Current.Request.QueryString["filter_city"] != null ? HttpContext.Current.Request.QueryString["filter_city"].ToString() : "";
                 string AREA = HttpContext.Current.Request.QueryString["filter_district"] != null ? HttpContext.Current.Request.QueryString["filter_district"].ToString() : "";
                 string ROAD = HttpContext.Current.Request.QueryString["filter_name"] != null ? HttpContext.Current.Request.QueryString["filter_name"].ToString() : "";
-                string SORT = HttpContext.Current.Request.QueryString["filter_datetime"] != null ? HttpContext.Current.Request.QueryString["filter_datetime"].ToString() : "";
+                string SORT = HttpContext.Current.Request.QueryString["Permutations"] != null ? HttpContext.Current.Request.QueryString["Permutations"].ToString() : "";
                 string STATUS = HttpContext.Current.Request.QueryString["filter_clinic_status"] != null ? HttpContext.Current.Request.QueryString["filter_clinic_status"].ToString() : "";
+                string DEPT = HttpContext.Current.Request.QueryString["Department"] != null ? HttpContext.Current.Request.QueryString["Department"].ToString() : "";
                 #endregion
                 #region check value
                 bool ColFlag = true;
@@ -58,7 +59,7 @@ namespace iCareCrmApi.Controllers
                 {
                     ClinicPageModel CPM = new ClinicPageModel();
 
-                    DataTable dt = cInfo.QueryPagingClinicInfoBySearch(page, 10, CITY.Trim(), AREA.Trim(), ROAD.Trim(), STATUS.Trim(), SORT.Trim());
+                    DataTable dt = cInfo.QueryPagingClinicInfoBySearch(page, 10, CITY.Trim(), AREA.Trim(), ROAD.Trim(), STATUS.Trim(), SORT.Trim(), DEPT.Trim());
                     if (dt != null && dt.Rows.Count > 0)
                     {
                         CPM.total = int.Parse(dt.Rows[0]["TotalCnt"].ToString());

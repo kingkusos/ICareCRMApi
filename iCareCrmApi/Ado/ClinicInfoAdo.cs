@@ -51,12 +51,30 @@ namespace iCareCrmApi.Ado
             return dt;
         }
 
-        public DataTable QueryPagingClinicInfoBySearch(int Pcurrent, int PSize, string CCity, string CArea, string CAddr, string CType, string Sort)
+        public DataTable QueryPagingClinicInfoBySearch(int Pcurrent, int PSize, string CCity, string CArea, string CAddr, string CType, string Sort, string Dept)
         {
             DataTable dt = new DataTable();
             try
             {
                 #region 
+                #region Ids
+                string sqlDept = string.Empty;
+                if (!string.IsNullOrEmpty(Dept))
+                {
+                    List<string> DeptAry = Dept.Split(',').ToList();
+
+                    string Arys = string.Empty;
+                    foreach (var item in DeptAry)
+                    {
+                        Arys += "'" + item + "',";
+                    }
+                    Arys = Arys.TrimEnd(',');
+
+                    string sqlDeptTemp = @" AND DP.DName IN ({0}) ";
+                    sqlDept = string.Format(sqlDeptTemp, Arys);
+                }
+                #endregion
+
                 string sqlSearch = string.Empty;
                 if (!string.IsNullOrWhiteSpace(CCity))
                 {
@@ -75,38 +93,63 @@ namespace iCareCrmApi.Ado
                     sqlSearch += "  AND CIN.CType = @CType   ";
                 }
 
-                string sqlOrder = " ORDER BY CTEResults.VisitTime DESC  ";
-                if(Sort.Trim().ToLower() == "reverse")
+                string sqlRowOrder = " ROW_NUMBER() OVER (ORDER BY CINSIG.VisitTime DESC) AS Rownumber,  ";
+                string sqlOrder = " ORDER BY CTE.VisitTime DESC  ";
+                switch (Sort.Trim().ToLower())
                 {
-                    sqlOrder = " ORDER BY CTEResults.VisitTime ASC  ";
+                    case "Dnew":
+                        sqlRowOrder = " ROW_NUMBER() OVER (ORDER BY CINSIG.VisitTime DESC) AS Rownumber,  ";
+                        sqlOrder = " ORDER BY CTE.VisitTime DESC  ";
+                        break;
+                    case "Dold":
+                        sqlRowOrder = " ROW_NUMBER() OVER (ORDER BY CINSIG.VisitTime DESC) AS Rownumber,  ";
+                        sqlOrder = " ORDER BY CTE.VisitTime ASC  ";
+                        break;
+                    case "Asmall":
+                        sqlRowOrder = " ROW_NUMBER() OVER (ORDER BY CINSIG.CAddr ASC) AS Rownumber,  ";
+                        sqlOrder = " ORDER BY CTE.CAddr ASC  ";
+                        break;
+                    case "Abig":
+                        sqlRowOrder = " ROW_NUMBER() OVER (ORDER BY CINSIG.CAddr DESC) AS Rownumber,  ";
+                        sqlOrder = " ORDER BY CTE.CAddr DESC  ";
+                        break;
                 }
+                
                 #endregion
 
 
                 string sqlcmd = @"  WITH CTEResults AS (
-														SELECT
-														ROW_NUMBER() OVER (ORDER BY NVL.VisitTime DESC) as Rownumber,
-														UIN.[UID],
-														UIN.UNickName,
-														NVL.VisitTime,
-														CIN.* 
-														FROM ClinicsInfo CIN
-														LEFT JOIN (
-															SELECT 
-															ROW_NUMBER() OVER (PARTITION BY CID ORDER BY VisitTime DESC) AS TIME_Sort,
-															* 
-															FROM VisitLog 
-															WHERE IsEnable = 1
-														) NVL ON CIN.CID = NVL.CID AND TIME_Sort = 1
-														LEFT JOIN UsersInfo UIN ON NVL.UserID = UIN.[UID]
-                                                        WHERE CIN.IsShow = 1
-                                                        " + sqlSearch + @"
+														SELECT 
+														" + sqlRowOrder + @"
+														* 
+														FROM (
+															SELECT
+															ROW_NUMBER() OVER (PARTITION BY CIN.CID ORDER BY CIN.CID DESC) AS Clinic_Part_Sort, 
+															DP.DName,
+															CIN.* 
+															FROM ClinicsInfo CIN
+															LEFT JOIN Department DP ON CIN.CID = DP.CID
+															WHERE CIN.IsShow = 1
+															" + sqlSearch + @"
+														) CINM
+														WHERE CINM.Clinic_Part_Sort = 1
 													) 
 													SELECT
                                                     CAST(CEILING(CAST((SELECT MAX(RowNumber) FROM CTEResults) as float) / @PSize) as Int) as TotalPage,
                                                     (SELECT MAX(RowNumber) FROM CTEResults) as TotalCnt,
+													UIN.[UID],
+													UIN.UNickName,
+													NVL.VisitTime,
                                                     * 
-                                                    FROM CTEResults
+                                                    FROM CTEResults CTE
+													LEFT JOIN (
+														SELECT 
+														ROW_NUMBER() OVER (PARTITION BY CID ORDER BY VisitTime DESC) AS TIME_Sort,
+														* 
+														FROM VisitLog 
+														WHERE IsEnable = 1
+													) NVL ON CTE.CID = NVL.CID AND TIME_Sort = 1
+													LEFT JOIN UsersInfo UIN ON NVL.UserID = UIN.[UID]
                                                     " + sqlOrder + @"
                                                     OFFSET (@Pcurrent - 1) * @PSize ROWS FETCH NEXT @PSize ROWS ONLY    ";
 
