@@ -60,47 +60,19 @@ namespace iCareCrmApi.Ado
                 string sqlSearch = string.Empty;
                 if (!string.IsNullOrWhiteSpace(CCity))
                 {
-                    if (string.IsNullOrWhiteSpace(sqlSearch))
-                    {
-                        sqlSearch += "  WHERE CIN.CCity = @CCity    ";
-                    }
-                    else
-                    {
-                        sqlSearch += "  AND CIN.CCity = @CCity    ";
-                    }
+                    sqlSearch += "  AND CIN.CCity = @CCity    ";
                 }
                 if (!string.IsNullOrWhiteSpace(CArea))
                 {
-                    if (string.IsNullOrWhiteSpace(sqlSearch))
-                    {
-                        sqlSearch += "  WHERE CIN.CArea = @CArea    ";
-                    }
-                    else
-                    {
-                        sqlSearch += "  AND CIN.CArea = @CArea   ";
-                    }
+                    sqlSearch += "  AND CIN.CArea = @CArea   ";
                 }
                 if (!string.IsNullOrWhiteSpace(CAddr))
                 {
-                    if (string.IsNullOrWhiteSpace(sqlSearch))
-                    {
-                        sqlSearch += "  WHERE (CIN.CAddr LIKE '%'+ @CAddr +'%' OR CIN.CName  LIKE '%'+ @CAddr +'%')     ";
-                    }
-                    else
-                    {
-                        sqlSearch += "  AND (CIN.CAddr LIKE '%'+ @CAddr +'%' OR CIN.CName  LIKE '%'+ @CAddr +'%')   ";
-                    }
+                    sqlSearch += "  AND (CIN.CAddr LIKE '%'+ @CAddr +'%' OR CIN.CName  LIKE '%'+ @CAddr +'%')   ";
                 }
                 if (!string.IsNullOrWhiteSpace(CType))
                 {
-                    if (string.IsNullOrWhiteSpace(sqlSearch))
-                    {
-                        sqlSearch += "  WHERE CIN.CType = @CType    ";
-                    }
-                    else
-                    {
-                        sqlSearch += "  AND CIN.CType = @CType   ";
-                    }
+                    sqlSearch += "  AND CIN.CType = @CType   ";
                 }
 
                 string sqlOrder = " ORDER BY CTEResults.VisitTime DESC  ";
@@ -127,6 +99,7 @@ namespace iCareCrmApi.Ado
 															WHERE IsEnable = 1
 														) NVL ON CIN.CID = NVL.CID AND TIME_Sort = 1
 														LEFT JOIN UsersInfo UIN ON NVL.UserID = UIN.[UID]
+                                                        WHERE CIN.IsShow = 1
                                                         " + sqlSearch + @"
 													) 
 													SELECT
