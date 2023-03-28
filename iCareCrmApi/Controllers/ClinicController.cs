@@ -18,9 +18,9 @@ using System.Web.Http.Cors;
 
 namespace iCareCrmApi.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
-    [CorsOnActionHandle]
-    [Access_Filter]
+    //[EnableCors(origins: "*", headers: "*", methods: "*")]
+    //[CorsOnActionHandle]
+    //[Access_Filter]
     [RoutePrefix("api/clinic")]
     
     public class ClinicController : ApiController
@@ -51,7 +51,7 @@ namespace iCareCrmApi.Controllers
                 #region check value
                 bool ColFlag = true;
                 string ErrorMsg = string.Empty;
-                if (string.IsNullOrWhiteSpace(SORT)) { ColFlag = false; ErrorMsg = "請確認日期排序方式"; }
+                if (string.IsNullOrWhiteSpace(SORT)) { ColFlag = false; ErrorMsg = "請確認排序方式"; }
 
                 #endregion
                 #region main

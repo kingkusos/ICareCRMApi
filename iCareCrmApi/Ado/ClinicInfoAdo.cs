@@ -124,34 +124,35 @@ namespace iCareCrmApi.Ado
 														* 
 														FROM (
 															SELECT
-															ROW_NUMBER() OVER (PARTITION BY CIN.CID ORDER BY CIN.CID DESC) AS Clinic_Part_Sort, 
+															ROW_NUMBER() OVER (PARTITION BY CIN.CID ORDER BY CIN.CID DESC) AS CRownumber, 
 															DP.DName,
+															UIN.[UID],
+															UIN.UNickName,
+															NVL.VisitTime,
 															CIN.* 
 															FROM ClinicsInfo CIN
 															LEFT JOIN Department DP ON CIN.CID = DP.CID
+															LEFT JOIN (
+																SELECT 
+																ROW_NUMBER() OVER (PARTITION BY CID ORDER BY VisitTime DESC) AS TIME_Sort,
+																* 
+																FROM VisitLog 
+																WHERE IsEnable = 1
+															) NVL ON CIN.CID = NVL.CID AND TIME_Sort = 1
+															LEFT JOIN UsersInfo UIN ON NVL.UserID = UIN.[UID]
 															WHERE CIN.IsShow = 1
 															" + sqlSearch + @"
-														) CINM
-														WHERE CINM.Clinic_Part_Sort = 1
+                                                            " + sqlDept + @"
+														) CINSIG
+														WHERE CINSIG.CRownumber = 1
 													) 
 													SELECT
                                                     CAST(CEILING(CAST((SELECT MAX(RowNumber) FROM CTEResults) as float) / @PSize) as Int) as TotalPage,
                                                     (SELECT MAX(RowNumber) FROM CTEResults) as TotalCnt,
-													UIN.[UID],
-													UIN.UNickName,
-													NVL.VisitTime,
                                                     * 
                                                     FROM CTEResults CTE
-													LEFT JOIN (
-														SELECT 
-														ROW_NUMBER() OVER (PARTITION BY CID ORDER BY VisitTime DESC) AS TIME_Sort,
-														* 
-														FROM VisitLog 
-														WHERE IsEnable = 1
-													) NVL ON CTE.CID = NVL.CID AND TIME_Sort = 1
-													LEFT JOIN UsersInfo UIN ON NVL.UserID = UIN.[UID]
                                                     " + sqlOrder + @"
-                                                    OFFSET (@Pcurrent - 1) * @PSize ROWS FETCH NEXT @PSize ROWS ONLY    ";
+                                                    OFFSET (@Pcurrent - 1) * @PSize ROWS FETCH NEXT @PSize ROWS ONLY   ";
 
                 using (SqlConnection Con = new SqlConnection(conn))
                 {
@@ -161,7 +162,7 @@ namespace iCareCrmApi.Ado
 
                     #region create your parameters
                     // create your parameters
-                    Cmd.Parameters.Add("@Pcurrent", SqlDbType.Int);
+                     Cmd.Parameters.Add("@Pcurrent", SqlDbType.Int);
                     Cmd.Parameters.Add("@PSize", SqlDbType.Int);
                     Cmd.Parameters.Add("@CCity", SqlDbType.NVarChar);
                     Cmd.Parameters.Add("@CArea", SqlDbType.NVarChar);
