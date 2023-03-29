@@ -42,7 +42,7 @@ namespace iCareCrmApi.Filters
                     {
                         result.status = false;
                         result.error = "授權金鑰驗證失敗";
-                        result.code = 403;
+                        result.code = 601;
                         result.data = null;
 
                         ColFlag = false;
@@ -62,7 +62,7 @@ namespace iCareCrmApi.Filters
                         {
                             result.status = false;
                             result.error = "授權金鑰驗證失敗";
-                            result.code = 403;
+                            result.code = 601;
                             result.data = null;
 
                             ColFlag = false;
@@ -74,7 +74,7 @@ namespace iCareCrmApi.Filters
                 {
                     result.status = false;
                     result.error = "授權金鑰驗證失敗";
-                    result.code = 403;
+                    result.code = 601;
                     result.data = null;
 
                     ColFlag = false;
@@ -86,7 +86,7 @@ namespace iCareCrmApi.Filters
             {
                 result.status = false;
                 result.error = "授權金鑰驗證失敗";
-                result.code = 403;
+                result.code = 601;
                 result.data = null;
 
                 ColFlag = false;
