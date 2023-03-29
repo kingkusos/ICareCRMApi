@@ -95,7 +95,7 @@ namespace iCareCrmApi.Ado
 
                 string sqlRowOrder = " ROW_NUMBER() OVER (ORDER BY CINSIG.VisitTime DESC) AS Rownumber,  ";
                 string sqlOrder = " ORDER BY CTE.VisitTime DESC  ";
-                switch (Sort.Trim().ToLower())
+                switch (Sort.Trim())
                 {
                     case "Dnew":
                         sqlRowOrder = " ROW_NUMBER() OVER (ORDER BY CINSIG.VisitTime DESC) AS Rownumber,  ";
