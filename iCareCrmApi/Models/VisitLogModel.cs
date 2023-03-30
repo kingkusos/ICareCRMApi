@@ -16,7 +16,7 @@ namespace iCareCrmApi.Models
         public string visit_category { get; set; }
         public bool isApproval { get; set; }
         public string clinic_status { get; set; }
-        public bool isedit { get; set; }
+        public bool isEdit { get; set; }
     }
     public class VisitLogPageModel
     {

@@ -87,7 +87,7 @@ namespace iCareCrmApi.Controllers
                             VLM.isApproval = bApproved;
                             VLM.visit_category = dr["VisitType"].ToString();
                             VLM.clinic_status = dr["CType"].ToString();
-                            VLM.isedit = bEdit;
+                            VLM.isEdit = bEdit;
                             VLP.list.Add(VLM);
                         }
                     }
