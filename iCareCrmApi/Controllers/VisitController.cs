@@ -61,10 +61,22 @@ namespace iCareCrmApi.Controllers
                     DataTable dt = vLog.GetVisitLogByCId(page, 5, CId, FILTERCONTENT);
                     if (dt != null && dt.Rows.Count > 0)
                     {
+                        LoginTokenModel LTM = loginC.DesConvertToken();
                         VLP.total = int.Parse(dt.Rows[0]["TotalCnt"].ToString());
                         VLP.totalpage = int.Parse(dt.Rows[0]["TotalPage"].ToString());
                         foreach (DataRow dr in dt.Rows)
                         {
+                            bool bApproved = bool.Parse(dr["IsApproved"].ToString());
+                            bool bEdit = true;
+                            if (bApproved) { bEdit = false; }
+                            else
+                            {
+                                if(LTM.id.Trim().ToUpper() != dr["UserID"].ToString().Trim().ToUpper())
+                                {
+                                    bEdit = false;
+                                }
+                            }
+
                             VisitLogModel VLM = new VisitLogModel();
                             VLM.id = dr["LogID"].ToString();
                             VLM.visitor_id = dr["UserID"].ToString();
@@ -72,9 +84,10 @@ namespace iCareCrmApi.Controllers
                             VLM.content = dr["VisitContent"].ToString();
                             VLM.visit_datetime = DateTime.Parse(dr["VisitTime"].ToString()).ToString("yyyy/MM/dd HH:mm");
                             VLM.now_datetime = DateTime.Parse(dr["CreateTime"].ToString()).ToString("yyyy/MM/dd HH:mm");
-                            VLM.isApproval = bool.Parse(dr["IsApproved"].ToString());
+                            VLM.isApproval = bApproved;
                             VLM.visit_category = dr["VisitType"].ToString();
                             VLM.clinic_status = dr["CType"].ToString();
+                            VLM.isedit = bEdit;
                             VLP.list.Add(VLM);
                         }
                     }
