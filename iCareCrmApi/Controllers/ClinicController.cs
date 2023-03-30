@@ -18,9 +18,9 @@ using System.Web.Http.Cors;
 
 namespace iCareCrmApi.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
-    [CorsOnActionHandle]
-    [Access_Filter]
+    //[EnableCors(origins: "*", headers: "*", methods: "*")]
+    //[CorsOnActionHandle]
+    //[Access_Filter]
     [RoutePrefix("api/clinic")]
     
     public class ClinicController : ApiController
@@ -71,7 +71,7 @@ namespace iCareCrmApi.Controllers
                             DateTime vTime;
                             if (!string.IsNullOrWhiteSpace(dr["VisitTime"].ToString()))
                             {
-                                if (!DateTime.TryParse(dr["VisitTime"].ToString(), out vTime))
+                                if (DateTime.TryParse(dr["VisitTime"].ToString(), out vTime))
                                 {
                                     vTimeString = vTime.ToString("yyyy/MM/dd HH:mm");
                                 }
