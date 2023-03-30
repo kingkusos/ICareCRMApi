@@ -73,7 +73,7 @@ namespace iCareCrmApi.Controllers
                             {
                                 if (DateTime.TryParse(dr["VisitTime"].ToString(), out vTime))
                                 {
-                                    vTimeString = vTime.ToString("yyyy/MM/dd HH:mm");
+                                    vTimeString = vTime.ToString("yyyy/MM/dd");
                                 }
                             }
                             
