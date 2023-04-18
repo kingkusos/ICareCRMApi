@@ -130,6 +130,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ado\ClinicInfoAdo.cs" />
+    <Compile Include="Ado\iCare\ClinicsAdo.cs" />
+    <Compile Include="Ado\iCare\PatientsAdo.cs" />
     <Compile Include="Ado\UsersInfoAdo.cs" />
     <Compile Include="Ado\VisitEditLogAdo.cs" />
     <Compile Include="Ado\VisitLogAdo.cs" />
@@ -169,6 +171,7 @@
     <Compile Include="Class\CryptoKeyClass.cs" />
     <Compile Include="Class\LoginClass.cs" />
     <Compile Include="Controllers\ClinicController.cs" />
+    <Compile Include="Controllers\CountsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -179,6 +182,7 @@
     </Compile>
     <Compile Include="Handle\CorsOnActionHandle.cs" />
     <Compile Include="Models\ClinicModel.cs" />
+    <Compile Include="Models\CountsModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\ResultModel.cs" />
     <Compile Include="Models\VisitLogModel.cs" />
