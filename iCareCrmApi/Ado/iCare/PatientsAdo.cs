@@ -19,7 +19,7 @@ namespace iCareCrmApi.Ado.iCare
             try
             {
 
-                string sqlcmd = @"  SELECT (COUNT(*) + 106500) AS PNum FROM Patients  ";
+                string sqlcmd = @"  SELECT * FROM v_Patients  ";
 
                 using (SqlConnection Con = new SqlConnection(conn))
                 {
