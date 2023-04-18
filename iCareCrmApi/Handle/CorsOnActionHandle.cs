@@ -21,7 +21,7 @@ namespace iCareCrmApi.Handle
                 //設定允許的網域清單
                 List<string> strAllowDomain = new List<string>()
                 {
-                    
+                    "https://localhost:44326",
                     "https://mis.sprinf.com",
                     "http://mis.sprinf.com",
                     "http://localhost:3000",
