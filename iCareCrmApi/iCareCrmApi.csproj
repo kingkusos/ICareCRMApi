@@ -132,6 +132,8 @@
     <Compile Include="Ado\ClinicInfoAdo.cs" />
     <Compile Include="Ado\iCare\ClinicsAdo.cs" />
     <Compile Include="Ado\iCare\PatientsAdo.cs" />
+    <Compile Include="Ado\RemoteInfoAdo.cs" />
+    <Compile Include="Ado\RemoteTypeAdo.cs" />
     <Compile Include="Ado\UsersInfoAdo.cs" />
     <Compile Include="Ado\VisitEditLogAdo.cs" />
     <Compile Include="Ado\VisitLogAdo.cs" />
@@ -174,6 +176,7 @@
     <Compile Include="Controllers\CountsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\RemoteController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\VisitController.cs" />
     <Compile Include="Filters\Access_Filter.cs" />
@@ -184,6 +187,7 @@
     <Compile Include="Models\ClinicModel.cs" />
     <Compile Include="Models\CountsModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\RemoteModel.cs" />
     <Compile Include="Models\ResultModel.cs" />
     <Compile Include="Models\VisitLogModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
