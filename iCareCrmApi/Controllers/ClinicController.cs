@@ -248,7 +248,7 @@ namespace iCareCrmApi.Controllers
                 if (!bool.TryParse(ISDECIDED, out IsDecided)) { ColFlag = false; ErrorMsg = "請確認醫師能否做主"; }
 
                 int People;
-                if(!int.TryParse(PEOPLE, out People)) { ColFlag = false; ErrorMsg = "請確認醫師人數"; }
+                int.TryParse(PEOPLE, out People);
 
                 #endregion
                 #region main
