@@ -18,9 +18,9 @@ using System.Web.Http.Cors;
 
 namespace iCareCrmApi.Controllers
 {
-    //[EnableCors(origins: "*", headers: "*", methods: "*")]
-    //[CorsOnActionHandle]
-    //[Access_Filter]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [CorsOnActionHandle]
+    [Access_Filter]
     [RoutePrefix("api/clinic")]
     
     public class ClinicController : ApiController
