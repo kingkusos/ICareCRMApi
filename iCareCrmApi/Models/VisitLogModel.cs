@@ -10,6 +10,7 @@ namespace iCareCrmApi.Models
         public string id { get; set; }
         public string visitor_id { get; set; }
         public string visitor_name { get; set; }
+        public string edit_content { set; get; }
         public string content { get; set; }
         public string visit_datetime { get; set; }
         public string now_datetime { get; set; }

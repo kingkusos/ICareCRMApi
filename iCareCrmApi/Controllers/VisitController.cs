@@ -81,6 +81,7 @@ namespace iCareCrmApi.Controllers
                             VLM.id = dr["LogID"].ToString();
                             VLM.visitor_id = dr["UserID"].ToString();
                             VLM.visitor_name = dr["UNickName"].ToString();
+                            VLM.edit_content = dr["VisitContent"].ToString();
                             VLM.content = dr["VisitContent"].ToString().Replace(System.Environment.NewLine, "<br>");
                             VLM.visit_datetime = DateTime.Parse(dr["VisitTime"].ToString()).ToString("yyyy/MM/dd HH:mm");
                             VLM.now_datetime = DateTime.Parse(dr["CreateTime"].ToString()).ToString("yyyy/MM/dd HH:mm");
